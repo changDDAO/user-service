@@ -1,0 +1,28 @@
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-server:8761/eureka
+    register-with-eureka: true
+    fetch-registry: true
+  instance:
+    prefer-ip-address: true
+
+spring:
+  profiles:
+    active: prod
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    url: jdbc:postgresql://auth-db:5432/postgres
+  jpa:
+    hibernate:
+      ddl-auto: create
+    open-in-view: false
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        default_batch_fetch_size: 100
+
