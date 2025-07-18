@@ -1,0 +1,23 @@
+services:
+  user-db:
+    image: postgres
+    container_name: user-db
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "5433:5432"  # 로컬에서 접근할 포트
+    restart: always
+    networks:
+      - msa-net
+    volumes:
+      - user-data:/var/lib/postgresql/data
+
+volumes:
+  user-data:
+
+networks:
+  msa-net:
+    external: true
+
