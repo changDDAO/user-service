@@ -8,8 +8,6 @@ eureka:
     prefer-ip-address: true
 
 spring:
-  profiles:
-    active: prod
 
   datasource:
     driver-class-name: org.postgresql.Driver
