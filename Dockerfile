@@ -6,4 +6,4 @@ COPY ${JAR_FILE} user-service.jar
 
 EXPOSE 8082
 
-ENTRYPOINT ["java","-Dspring.profiles.active=prod", "-jar", "/user-service.jar"]
+ENTRYPOINT ["java","-Duser.timezone=Asia/Seoul","-Dspring.profiles.active=prod", "-jar", "/user-service.jar"]

@@ -3,6 +3,7 @@ services:
     image: postgres
     container_name: user-db
     environment:
+      TZ: Asia/Seoul
       POSTGRES_DB: postgres
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
