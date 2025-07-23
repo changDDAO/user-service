@@ -51,8 +51,8 @@ jobs:
           cat docker-compose.yml || echo "docker-compose.yml 없음"
 
       - name: Pull latest image from Docker Hub
-        run: docker compose -f ~/docker-compose.yml pull user-service
+        run: docker compose -f ~/home/changddao/changhome/user-service/actions-runner/docker-compose.yml pull user-service
 
       - name: Restart auth-service container
-        run: docker compose -f ~/docker-compose.yml up -d user-service
+        run: docker compose -f ~/home/changddao/changhome/user-service/actions-runner/docker-compose.yml up -d user-service
 
