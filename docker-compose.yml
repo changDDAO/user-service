@@ -1,5 +1,5 @@
 services:
-  app:
+  user-service:
 
     container_name: user-service
     build:
