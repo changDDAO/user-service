@@ -26,4 +26,8 @@ public class UserProfile {
 
     @Embedded
     private Address address;
+
+    public void updateImageUrl(String newImageUrl) {
+        this.imageUrl = newImageUrl;
+    }
 }
