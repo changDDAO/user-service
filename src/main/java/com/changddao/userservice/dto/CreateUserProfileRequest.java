@@ -5,7 +5,8 @@ public record CreateUserProfileRequest(
         String nickname,
         String name,
         String phoneNumber,
-        AddressDto address
+        AddressDto address,
+        String imageUrl
 ) {
     public record AddressDto(String city, String street, String zipcode){
 

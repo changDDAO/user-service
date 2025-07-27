@@ -22,6 +22,8 @@ public class UserProfile {
     @Column(nullable = false, length=20)
     private String phoneNumber;
 
+    private String imageUrl;
+
     @Embedded
     private Address address;
 }

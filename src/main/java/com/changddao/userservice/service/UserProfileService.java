@@ -26,6 +26,7 @@ public class UserProfileService {
                 .nickname(req.nickname())
                 .name(req.name())
                 .phoneNumber(req.phoneNumber())
+                .imageUrl(req.imageUrl())
                 .address(address)
                 .build();
 
