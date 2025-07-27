@@ -27,3 +27,9 @@ spring:
   application:
     name: user-service
 
+minio:
+  url: ${MINIO_URL}
+  access-key: ${MINIO_USER}
+  secret-key: ${MINIO_PASSWORD}
+  bucket: ${MINIO_BUCKET}
+
