@@ -5,15 +5,18 @@ import com.changddao.userservice.entity.Address;
 import com.changddao.userservice.entity.UserProfile;
 import com.changddao.userservice.repository.UserProfileRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.net.URI;
+import java.util.Arrays;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class UserProfileService {
     private final UserProfileRepository userProfileRepository;
     private final FileService fileService;
@@ -76,8 +79,10 @@ public class UserProfileService {
     private String extractObjectName(String imageUrl) {
         // 예: http://localhost:9000/changhome/user-profile/abc.jpg
         try {
+            log.info("extractObjectName 진입 : ");
             URI uri = new URI(imageUrl);
             String[] parts = uri.getPath().split("/", 3); // ["", "changhome", "user-profile/abc.jpg"]
+            Arrays.stream(parts).forEach(log::info);
             return parts.length >= 3 ? parts[2] : "";
         } catch (Exception e) {
             throw new RuntimeException("이미지 경로 추출 실패", e);
