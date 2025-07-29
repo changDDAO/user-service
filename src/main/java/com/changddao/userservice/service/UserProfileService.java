@@ -79,10 +79,8 @@ public class UserProfileService {
     private String extractObjectName(String imageUrl) {
         // 예: http://localhost:9000/changhome/user-profile/abc.jpg
         try {
-            log.info("extractObjectName 진입 : ");
             URI uri = new URI(imageUrl);
             String[] parts = uri.getPath().split("/", 3); // ["", "changhome", "user-profile/abc.jpg"]
-            Arrays.stream(parts).forEach(log::info);
             return parts.length >= 3 ? parts[2] : "";
         } catch (Exception e) {
             throw new RuntimeException("이미지 경로 추출 실패", e);
