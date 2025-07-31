@@ -66,18 +66,32 @@ public class UserProfileService {
         // 3. DB 업데이트
         user.updateImageUrl(newImageUrl);
     }
+    @Transactional
+    public void deleteUserProfile(Long userId) {
+        // 먼저 이미지 삭제
+        deleteProfileImage(userId);
+        // 그 후 DB에서 프로필 삭제
+        userProfileRepository.deleteById(userId);
+    }
+
 
     @Transactional
     public void deleteProfileImage(Long userId) {
         UserProfile user = userProfileRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("사용자 정보를 찾을 수 없습니다."));
-        String objectName = extractObjectName(user.getImageUrl());
-        fileService.deleteFile(objectName);
-        user.updateImageUrl(null);
+
+        if (user.getImageUrl() != null && !user.getImageUrl().isEmpty()) {
+            String objectName = extractObjectName(user.getImageUrl());
+            fileService.deleteFile(objectName);
+            user.updateImageUrl(null);
+        }
     }
 
     private String extractObjectName(String imageUrl) {
-        // 예: http://localhost:9000/changhome/user-profile/abc.jpg
+        if (imageUrl == null || imageUrl.isEmpty()) {
+            return "";
+        }
+
         try {
             URI uri = new URI(imageUrl);
             String[] parts = uri.getPath().split("/", 3); // ["", "changhome", "user-profile/abc.jpg"]
