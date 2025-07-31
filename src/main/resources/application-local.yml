@@ -18,7 +18,7 @@ spring:
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
       properties:
-        spring.json.trusted.packages: com.changddao.userservice.dto.kafka
+        spring.json.trusted.packages: com.changddao.auth_service.dto.kafka
 
   datasource:
     driver-class-name: org.postgresql.Driver

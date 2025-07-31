@@ -1,4 +1,4 @@
-package com.changddao.userservice.dto.kafka;
+package com.changddao.auth_service.dto.kafka;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

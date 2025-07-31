@@ -68,6 +68,12 @@ public class UserProfileService {
     }
     @Transactional
     public void deleteUserProfile(Long userId) {
+        UserProfile user = userProfileRepository.findById(userId).orElse(null);
+        if (user == null) {
+            log.warn("삭제하려는 유저가 존재하지 않습니다. userId ={}", userId);
+            return;
+        }
+
         // 먼저 이미지 삭제
         deleteProfileImage(userId);
         // 그 후 DB에서 프로필 삭제

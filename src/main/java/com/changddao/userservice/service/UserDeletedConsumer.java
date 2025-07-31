@@ -1,6 +1,6 @@
 package com.changddao.userservice.service;
 
-import com.changddao.userservice.dto.kafka.UserDeletedEvent;
+import com.changddao.auth_service.dto.kafka.UserDeletedEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
