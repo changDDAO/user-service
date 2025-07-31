@@ -9,12 +9,24 @@ eureka:
     hostname: user-service
     instance-id: user-service:${spring.application.instance_id:${random.value}}
 spring:
+  kafka:
+    bootstrap-servers: kafka:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    consumer:
+      group-id: auth-event-handler
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: com.changddao.auth_service.dto.kafka
 
   datasource:
     driver-class-name: org.postgresql.Driver
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
     url: jdbc:postgresql://user-db:5432/postgres
+
   jpa:
     hibernate:
       ddl-auto: create

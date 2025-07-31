@@ -66,23 +66,41 @@ public class UserProfileService {
         // 3. DB 업데이트
         user.updateImageUrl(newImageUrl);
     }
+    @Transactional
+    public void deleteUserProfile(Long userId) {
+        UserProfile user = userProfileRepository.findById(userId).orElse(null);
+        if (user == null) {
+            log.warn("삭제하려는 유저가 존재하지 않습니다. userId ={}", userId);
+            return;
+        }
+
+        // 먼저 이미지 삭제
+        deleteProfileImage(userId);
+        // 그 후 DB에서 프로필 삭제
+        userProfileRepository.deleteById(userId);
+    }
+
 
     @Transactional
     public void deleteProfileImage(Long userId) {
         UserProfile user = userProfileRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("사용자 정보를 찾을 수 없습니다."));
-        String objectName = extractObjectName(user.getImageUrl());
-        fileService.deleteFile(objectName);
-        user.updateImageUrl(null);
+
+        if (user.getImageUrl() != null && !user.getImageUrl().isEmpty()) {
+            String objectName = extractObjectName(user.getImageUrl());
+            fileService.deleteFile(objectName);
+            user.updateImageUrl(null);
+        }
     }
 
     private String extractObjectName(String imageUrl) {
-        // 예: http://localhost:9000/changhome/user-profile/abc.jpg
+        if (imageUrl == null || imageUrl.isEmpty()) {
+            return "";
+        }
+
         try {
-            log.info("extractObjectName 진입 : ");
             URI uri = new URI(imageUrl);
             String[] parts = uri.getPath().split("/", 3); // ["", "changhome", "user-profile/abc.jpg"]
-            Arrays.stream(parts).forEach(log::info);
             return parts.length >= 3 ? parts[2] : "";
         } catch (Exception e) {
             throw new RuntimeException("이미지 경로 추출 실패", e);
